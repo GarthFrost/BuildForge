@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { getChampions, getItems, getRunes, calculateBuild } from "../api/client";
 
 export function useBuildForge() {
   const [champions, setChampions] = useState([]);
@@ -9,27 +8,63 @@ export function useBuildForge() {
   const [selectedChampion, setSelectedChampion] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedRunes, setSelectedRunes] = useState([]);
+
   const [level, setLevel] = useState(1);
+  const [stats, setStats] = useState([]);
 
-  const [stats, setStats] = useState(null);
-
-  // Load data on mount
+  // -----------------------------------------
+  // ⭐ FETCH CHAMPIONS, ITEMS, RUNES
+  // -----------------------------------------
   useEffect(() => {
-    getChampions().then(setChampions);
-    getItems().then(setItems);
-    getRunes().then(setRunes);
+    async function loadAllData() {
+      try {
+        const [champRes, itemRes, runeRes] = await Promise.all([
+          fetch("https://buildforge-backend-au0a.onrender.com/api/champions"),
+          fetch("https://buildforge-backend-au0a.onrender.com/api/items"),
+          fetch("https://buildforge-backend-au0a.onrender.com/api/runes")
+        ]);
+
+        setChampions(await champRes.json());
+        setItems(await itemRes.json());
+        setRunes(await runeRes.json());
+      } catch (err) {
+        console.error("Failed to load BuildForge data:", err);
+      }
+    }
+
+    loadAllData();
   }, []);
 
-  // Recalculate stats whenever inputs change
+  // -----------------------------------------
+  // ⭐ FETCH POWER CURVE WHEN SELECTION CHANGES
+  // -----------------------------------------
   useEffect(() => {
-    if (!selectedChampion) return;
+    async function loadStats() {
+      if (!selectedChampion) return;
 
-    calculateBuild({
-      champion: selectedChampion,
-      items: selectedItems,
-      runes: selectedRunes,
-      level
-    }).then(setStats);
+      try {
+        const res = await fetch(
+          "https://buildforge-backend-au0a.onrender.com/api/calc",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              champion: selectedChampion,
+              level,
+              items: selectedItems,
+              runes: selectedRunes
+            })
+          }
+        );
+
+        const data = await res.json();
+        setStats(data);
+      } catch (err) {
+        console.error("Failed to calculate stats:", err);
+      }
+    }
+
+    loadStats();
   }, [selectedChampion, selectedItems, selectedRunes, level]);
 
   return {
@@ -47,4 +82,3 @@ export function useBuildForge() {
     stats
   };
 }
-// testing VS code commit
