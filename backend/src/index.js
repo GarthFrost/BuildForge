@@ -7,14 +7,24 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://buildforge.vercel.app"
+  "https://build-forge-jzlf982cb-buildforge.vercel.app"
 ];
 
-app.use(cors({
-  origin: allowedOrigins,
-  methods: ["GET", "POST"],
-  allowedHeaders: ["Content-Type"]
-}));
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type"]
+  })
+);
+
 
 app.use(express.json());
 
