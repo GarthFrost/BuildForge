@@ -44,7 +44,7 @@ export function useBuildForge() {
 
       try {
         const res = await fetch(
-          "https://buildforge-backend-au0a.onrender.com/api/calculator",
+          "https://buildforge-backend-au0a.onrender.com/api/calculate",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
