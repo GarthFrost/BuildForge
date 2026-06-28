@@ -4,7 +4,18 @@ import dataRoutes from "./routes/dataRoutes.js";
 import calcRoutes from "./routes/calcRoutes.js";
 
 const app = express();
-app.use(cors());
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://buildforge.vercel.app"
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type"]
+}));
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
