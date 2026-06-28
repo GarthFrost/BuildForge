@@ -7,7 +7,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://build-forge-jzlf982cb-buildforge.vercel.app"
+  "https://build-forge-aebsehqd8-buildforge.vercel.app"
 ];
 
 app.use(
