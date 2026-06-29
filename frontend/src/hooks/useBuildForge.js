@@ -15,30 +15,14 @@ export function useBuildForge() {
   // -----------------------------------------
   // ⭐ FETCH CHAMPIONS, ITEMS, RUNES
   // -----------------------------------------
-    useEffect(() => {
+      useEffect(() => {
     async function loadAllData() {
-      const urls = [
-        "https://buildforge-backend-au0a.onrender.com/api/champions",
-        "https://buildforge-backend-au0a.onrender.com/api/items",
-        "https://buildforge-backend-au0a.onrender.com/api/runes"
-      ];
-
       try {
-        const [champRes, itemRes, runeRes] = await Promise.all(
-          urls.map(u => fetch(u))
-        );
-
-        console.log("champRes status", champRes.status, "content-type", champRes.headers.get("content-type"));
-        console.log("itemRes status", itemRes.status, "content-type", itemRes.headers.get("content-type"));
-        console.log("runeRes status", runeRes.status, "content-type", runeRes.headers.get("content-type"));
-
-        console.log("champRes text (first 500):", (await champRes.clone().text()).slice(0, 500));
-        console.log("itemRes text (first 500):", (await itemRes.clone().text()).slice(0, 500));
-        console.log("runeRes text (first 500):", (await runeRes.clone().text()).slice(0, 500));
-
-        if (!champRes.ok || !itemRes.ok || !runeRes.ok) {
-          throw new Error("One or more data endpoints returned non-OK status");
-        }
+        const [champRes, itemRes, runeRes] = await Promise.all([
+          fetch("https://buildforge-backend-au0a.onrender.com/api/champions"),
+          fetch("https://buildforge-backend-au0a.onrender.com/api/items"),
+          fetch("https://buildforge-backend-au0a.onrender.com/api/runes")
+        ]);
 
         setChampions(await champRes.json());
         setItems(await itemRes.json());
@@ -54,13 +38,13 @@ export function useBuildForge() {
   // -----------------------------------------
   // ⭐ FETCH POWER CURVE WHEN SELECTION CHANGES
   // -----------------------------------------
-    useEffect(() => {
+  useEffect(() => {
     async function loadStats() {
       if (!selectedChampion) return;
 
       try {
         const res = await fetch(
-          "https://buildforge-backend-au0a.onrender.com/api/calculate",
+          "https://buildforge-backend-au0a.onrender.com/api/calc",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -73,14 +57,6 @@ export function useBuildForge() {
           }
         );
 
-        console.log("calc status", res.status, "content-type", res.headers.get("content-type"));
-        const text = await res.clone().text();
-        console.log("calc text (first 500):", text.slice(0, 500));
-
-        if (!res.ok) {
-          throw new Error(`Calculate endpoint returned ${res.status}`);
-        }
-
         const data = await res.json();
         setStats(data);
       } catch (err) {
@@ -90,6 +66,7 @@ export function useBuildForge() {
 
     loadStats();
   }, [selectedChampion, selectedItems, selectedRunes, level]);
+
 
 
   return {
