@@ -13,11 +13,14 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
+  if (!origin ||
+    origin.includes("build-forge") && origin.endsWith(".vercel.app") ||
+    origin === "http://localhost:5173"
+  ) {
+    callback(null, true);
+  } else {
+    callback(new Error("Not allowed by CORS"));
+  }
     },
     credentials: true,
     methods: ["GET", "POST", "OPTIONS"],

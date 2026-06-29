@@ -1,0 +1,7 @@
+﻿Month,Focus;Area,Key;Deliverables;;;;;;;;;;;;
+"1,Planning + Architecture,""Define";feature;scope,;data;flow,;and;UI;wireframes.;Set;up;Riot API;access,;repo,;and;"environment."""
+"2,Backend Foundation,""Build";API;integration,;champion/item;data;models,;and;stat;calculators.;Establish;synergy;logic;and;"caching.""";
+"3,Frontend Core,""Implement";build;editor,;graphing;layer;(D3.js / Chart.js),;and;responsive;"layout.""";;;;;;
+4,Art + Visual Assets,Generate;non‑infringing;champion/item;icons;and;UI;elements.;Integrate;them;into;the;interface.;;;
+"5,Testing + Optimization,""Debug,";refine;calculations,;handle;rate;limits,;and;polish;"UX.""";;;;;;
+"6,Deployment + Feedback,""Host";on;cloud,;gather;user;feedback,;iterate,;and;prep;monetization;or;partnership;"outreach.""";;
