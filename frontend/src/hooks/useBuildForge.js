@@ -43,19 +43,19 @@ export function useBuildForge() {
       if (!selectedChampion) return;
 
       try {
-        const res = await fetch(
-          "https://buildforge-backend-au0a.onrender.com/api/calc",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              champion: selectedChampion,
-              level,
-              items: selectedItems,
-              runes: selectedRunes
-            })
-          }
-        );
+const championObj = champions.find(c => c.name === selectedChampion);
+
+const res = await fetch("https://buildforge-backend-au0a.onrender.com/api/calculate", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    champion: championObj,        // ✔ full object, backend will not crash
+    level,
+    items: selectedItems,
+    runes: selectedRunes
+  })
+});
+
 
         const data = await res.json();
         setStats(data);
