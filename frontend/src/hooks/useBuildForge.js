@@ -43,7 +43,7 @@ export function useBuildForge() {
       if (!selectedChampion) return;
 
       try {
-const championObj = champions.find(c => c.name === selectedChampion);
+        const championObj = champions.find(c => c.name === selectedChampion);
 
 const res = await fetch("https://buildforge-backend-au0a.onrender.com/api/calculate", {
   method: "POST",
