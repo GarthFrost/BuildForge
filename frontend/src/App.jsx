@@ -64,21 +64,17 @@ export default function App() {
 
       {/* Runes */}
       <h2>Runes</h2>
-      <select
-        multiple
-        size="6"
-        onChange={(e) =>
-          setSelectedRunes(
-            [...e.target.selectedOptions].map((o) => JSON.parse(o.value))
-          )
-        }
-      >
-        {runes.map((r) => (
-          <option key={r.id} value={JSON.stringify(r)}>
-            {r.name}
-          </option>
-        ))}
-      </select>
+<RuneCarousel
+  runes={runes}
+  onSelect={(rune) =>
+    setSelectedRunes((prev) =>
+      prev.some((r) => r.id === rune.id)
+        ? prev.filter((r) => r.id !== rune.id)
+        : [...prev, rune]
+    )
+  }
+/>
+
 
       {/* Graph */}
       <h2>Power Curve</h2>
