@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import "./RuneCarousel.css"; // optional if you want to style separately
 
 export default function RuneCarousel({ runes, onSelect }) {
   const scrollRef = useRef(null);
