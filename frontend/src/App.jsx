@@ -24,7 +24,11 @@ export default function App() {
   <>
     <Starfieldsplash />
 
-    <div style={{ padding: "20px", fontFamily: "sans-serif" }}>
+   <div style={{ 
+  padding: "20px", 
+  fontFamily: "sans-serif",
+  backgroundColor: "transparent"
+}}>
       <h1>BuildForge</h1>
 
       {/* Champion Selector */}
