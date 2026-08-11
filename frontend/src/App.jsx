@@ -21,8 +21,9 @@ export default function App() {
   } = useBuildForge();
 
   return (
-    <>
-      <Starfieldsplash />
+  <>
+    <Starfieldsplash />
+
     <div style={{ padding: "20px", fontFamily: "sans-serif" }}>
       <h1>BuildForge</h1>
 
@@ -67,21 +68,27 @@ export default function App() {
 
       {/* Runes */}
       <h2>Runes</h2>
-<RuneCarousel
-  runes={runes}
-  onSelect={(rune) =>
-    setSelectedRunes((prev) =>
-      prev.some((r) => r.id === rune.id)
-        ? prev.filter((r) => r.id !== rune.id)
-        : [...prev, rune]
-    )
-  }
-/>
-
+      <select
+        multiple
+        size="6"
+        onChange={(e) =>
+          setSelectedRunes(
+            [...e.target.selectedOptions].map((o) => JSON.parse(o.value))
+          )
+        }
+      >
+        {runes.map((r) => (
+          <option key={r.id} value={JSON.stringify(r)}>
+            {r.name}
+          </option>
+        ))}
+      </select>
 
       {/* Graph */}
       <h2>Power Curve</h2>
       <PowerCurveGraph stats={stats} />
     </div>
-  );
+  </>
+);
+
 }
