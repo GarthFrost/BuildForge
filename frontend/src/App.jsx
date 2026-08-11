@@ -21,6 +21,8 @@ export default function App() {
   } = useBuildForge();
 
   return (
+    <>
+      <Starfieldsplash />
     <div style={{ padding: "20px", fontFamily: "sans-serif" }}>
       <h1>BuildForge</h1>
 
