@@ -73,23 +73,24 @@ export default function App() {
         ))}
       </select>
 
-      {/* Runes */}
-      <h2>Runes</h2>
-      <select
-        multiple
-        size="6"
-        onChange={(e) =>
-          setSelectedRunes(
-            [...e.target.selectedOptions].map((o) => JSON.parse(o.value))
-          )
-        }
-      >
-        {runes.map((r) => (
-          <option key={r.id} value={JSON.stringify(r)}>
-            {r.name}
-          </option>
-        ))}
-      </select>
+{/* Runes */}
+<h2>Runes</h2>
+<select
+  multiple
+  size="6"
+  onChange={(e) =>
+    setSelectedRunes(
+      [...e.target.selectedOptions].map((o) => JSON.parse(o.value))
+    )
+  }
+>
+  {runes.map((r) => (
+    <option key={r.id} value={JSON.stringify(r)}>
+      {r.name}
+    </option>
+  ))}
+</select>
+
 
       {/* Graph */}
       <h2>Power Curve</h2>
