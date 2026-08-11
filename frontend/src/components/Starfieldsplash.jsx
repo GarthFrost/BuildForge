@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export default function Starfield() {
+export default function Starfieldsplash() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
