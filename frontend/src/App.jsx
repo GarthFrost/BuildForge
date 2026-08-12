@@ -36,7 +36,7 @@ export default function App() {
       >
 
         {/* NEW: Buildforger Header */}
-        <BfHeader />
+        <Bfheader />
 
         {/* Champion Selector */}
         <h2>Champion</h2>
