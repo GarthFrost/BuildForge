@@ -1,7 +1,7 @@
-// frontend/src/components/BfHeader.jsx
+// frontend/src/components/Bfheader.jsx
 import React from "react";
 
-const BfHeader = () => {
+const Bfheader = () => {
   const headerStyle = {
     display: "flex",
     justifyContent: "center",
@@ -36,4 +36,4 @@ const BfHeader = () => {
   );
 };
 
-export default BfHeader;
+export default Bfheader;
