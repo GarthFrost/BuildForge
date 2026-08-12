@@ -1,6 +1,6 @@
 // frontend/src/components/Bfheader.jsx
 import React from "react";
-import headerImg from "../assets/transbfheader0.png";
+import headerImg from "../assets/transbfheader0.PNG";
 
 export default function Bfheader() {
   return (
