@@ -2,6 +2,7 @@ import Starfieldsplash from "./components/Starfieldsplash";
 import PowerCurveGraph from "./components/PowerCurveGraph";
 import { useBuildForge } from "./hooks/useBuildForge";
 import RuneCarousel from "./components/RuneCarousel";
+import Bfheader from "./components/Bfheader";
  
 
 
