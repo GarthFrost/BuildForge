@@ -2,7 +2,7 @@ import Starfieldsplash from "./components/Starfieldsplash";
 import PowerCurveGraph from "./components/PowerCurveGraph";
 import { useBuildForge } from "./hooks/useBuildForge";
 import RuneCarousel from "./components/RuneCarousel";
-
+import BfHeader from "./components/BfHeader";   // ← NEW HEADER IMPORT
 
 
 export default function App() {
@@ -22,78 +22,79 @@ export default function App() {
   } = useBuildForge();
 
   return (
-  <>
-    <Starfieldsplash />
+    <>
+      <Starfieldsplash />
 
-<div style={{
-  padding: "20px",
-  fontFamily: "sans-serif",
-  backgroundColor: "transparent",
-  position: "relative",
-  zIndex: 1
-}}>
-
-      <h1>BuildForge</h1>
-
-      {/* Champion Selector */}
-      <h2>Champion</h2>
-      <select onChange={(e) => setSelectedChampion(JSON.parse(e.target.value))}>
-        <option value="">-- Choose Champion --</option>
-        {champions.map((c) => (
-          <option key={c.id} value={JSON.stringify(c)}>
-            {c.name}
-          </option>
-        ))}
-      </select>
-
-      {/* Level Slider */}
-      <h2>Level: {level}</h2>
-      <input
-        type="range"
-        min="1"
-        max="18"
-        value={level}
-        onChange={(e) => setLevel(Number(e.target.value))}
-      />
-
-      {/* Items */}
-      <h2>Items</h2>
-      <select
-        multiple
-        size="6"
-        onChange={(e) =>
-          setSelectedItems(
-            [...e.target.selectedOptions].map((o) => JSON.parse(o.value))
-          )
-        }
+      <div
+        style={{
+          padding: "20px",
+          fontFamily: "sans-serif",
+          backgroundColor: "transparent",
+          position: "relative",
+          zIndex: 1
+        }}
       >
-        {items.map((i) => (
-          <option key={i.id} value={JSON.stringify(i)}>
-            {i.name}
-          </option>
-        ))}
-      </select>
 
-{/* Runes */}
-<h2>Runes</h2>
-<RuneCarousel
-  runes={runes}
-  onSelect={(rune) =>
-    setSelectedRunes((prev) =>
-      prev.some((r) => r.id === rune.id)
-        ? prev.filter((r) => r.id !== rune.id)
-        : [...prev, rune]
-    )
-  }
-/>
+        {/* NEW: Buildforger Header */}
+        <BfHeader />
 
+        {/* Champion Selector */}
+        <h2>Champion</h2>
+        <select onChange={(e) => setSelectedChampion(JSON.parse(e.target.value))}>
+          <option value="">-- Choose Champion --</option>
+          {champions.map((c) => (
+            <option key={c.id} value={JSON.stringify(c)}>
+              {c.name}
+            </option>
+          ))}
+        </select>
 
+        {/* Level Slider */}
+        <h2>Level: {level}</h2>
+        <input
+          type="range"
+          min="1"
+          max="18"
+          value={level}
+          onChange={(e) => setLevel(Number(e.target.value))}
+        />
 
-      {/* Graph */}
-      <h2>Power Curve</h2>
-      <PowerCurveGraph stats={stats} />
-    </div>
-  </>
-);
+        {/* Items */}
+        <h2>Items</h2>
+        <select
+          multiple
+          size="6"
+          onChange={(e) =>
+            setSelectedItems(
+              [...e.target.selectedOptions].map((o) => JSON.parse(o.value))
+            )
+          }
+        >
+          {items.map((i) => (
+            <option key={i.id} value={JSON.stringify(i)}>
+              {i.name}
+            </option>
+          ))}
+        </select>
 
+        {/* Runes */}
+        <h2>Runes</h2>
+        <RuneCarousel
+          runes={runes}
+          onSelect={(rune) =>
+            setSelectedRunes((prev) =>
+              prev.some((r) => r.id === rune.id)
+                ? prev.filter((r) => r.id !== rune.id)
+                : [...prev, rune]
+            )
+          }
+        />
+
+        {/* Graph */}
+        <h2>Power Curve</h2>
+        <PowerCurveGraph stats={stats} />
+
+      </div>
+    </>
+  );
 }
